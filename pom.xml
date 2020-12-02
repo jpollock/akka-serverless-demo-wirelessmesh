@@ -6,7 +6,6 @@
     <groupId>cloudstate.samples.wirelessmesh</groupId>
     <artifactId>cloudstate-samples-wirelessmesh</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <packaging>jar</packaging>
 
     <build>
@@ -53,7 +52,7 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>t3chi3/wirelessmesh:%l</name>
+                            <name>jpollock/wirelessmesh:%l</name>
                             <build>
                                 <from>adoptopenjdk/openjdk8</from>
                                 <tags>
@@ -87,6 +86,22 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
             </plugin>
+
+             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-Djava.library.path=target/lib</argument>
+                        <argument>-Dconfig.resource=${APP_CONFIG}</argument>
+                        <argument>-classpath</argument>
+                        <classpath />
+                        <argument>wirelessmesh.WirelessMeshMain</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -114,9 +129,22 @@
             <version>3.6.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.13.3</version>
+        </dependency>
+
+        <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.13.3</version>
+        </dependency>
+
     </dependencies>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <APP_CONFIG>application.conf</APP_CONFIG>
     </properties>
 </project>

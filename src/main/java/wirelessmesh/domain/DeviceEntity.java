@@ -109,7 +109,12 @@
       */
      @EventHandler
      public void nightlightToggled(NightlightToggled nightlightToggled) {
-         nightlightOn = nightlightToggled.getNightlightOn();
+        System.out.println("EventHandler::nightlightToggled");
+        System.out.println(deviceId);
+        System.out.println(nightlightOn);
+
+        nightlightOn = nightlightToggled.getNightlightOn();
+        System.out.println(nightlightOn);
      }
 
      /**
@@ -117,12 +122,13 @@
       */
      @CommandHandler
      public Device getDevice(GetDeviceCommand cmd, CommandContext ctx) {
-         return Device.newBuilder()
-                 .setDeviceId(deviceId)
-                 .setActivated(activated)
-                 .setCustomerId(customerId)
-                 .setRoom(room)
-                 .setNightlightOn(nightlightOn)
-                 .build();
+        System.out.println("JEREMY!!!!!");
+        System.out.println(deviceId);
+        System.out.println(nightlightOn);
+        return Device.newBuilder()
+          .setActivated(activated)
+          .setRoom(room)
+          .setNightlightOn(nightlightOn).build();
+
      }
  }

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "cloudstate/entity_key.proto";
+
+
+package service;
+
+option java_multiple_files = true;
+
+
+message PresenceDevice {
+    string deviceId = 1 [(.cloudstate.entity_key) = true];
+}
+
+message OnlineStatus {
+    bool online = 1;
+}
+
+message Empty {
+}
+
+service WirelessMeshPresenceService {
+    // Connect the given user. They will stay connected as long as the stream stays open.
+    rpc Connect(PresenceDevice) returns (stream Empty);
+    // Monitor the online status of the given user.
+    rpc Monitor(PresenceDevice) returns (stream OnlineStatus);
+}

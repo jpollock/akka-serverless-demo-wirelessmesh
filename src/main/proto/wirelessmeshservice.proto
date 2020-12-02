@@ -17,12 +17,14 @@ message AssignRoomCommand {
 }
 
 message Device {
-    string deviceId = 1;
+    string deviceId = 1 [(.cloudstate.entity_key) = true];
     bool activated = 2;
     string customerId = 3;
     string room = 4;
     bool nightlightOn = 5;
+
 }
+
 
 message GetDeviceCommand {
     string deviceId = 1 [(.cloudstate.entity_key) = true];
@@ -49,7 +51,7 @@ service WirelessMeshService {
 
     rpc GetDevice(GetDeviceCommand) returns (Device) {
         option (google.api.http) = {
-            get: "/wirelessmesh/get-device",
+            get: "/wirelessmesh/get-device/{deviceId}",
             body: "*",
         };
     }
